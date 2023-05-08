@@ -16,16 +16,21 @@ app.use(express.urlencoded({
 app.use(routes);
 
 const syncDb = async () => {
-    console.log("Hello")
-  await sequelize.sync({
-    force: true
+    try {
+      await sequelize.authenticate();
+      const tableNames = await sequelize.showAllSchemas();
+      if (tableNames.length === 0) {
+        await sequelize.sync();
+        console.log('Database synchronized');
+      }
+    } catch (err) {
+      console.error('Unable to connect to the database:', err);
+    }
+  };
+
+// Start the server after the database is synced
+syncDb().then(() => {
+    app.listen(PORT, () => {
+      console.log(`App listening on port ${PORT}!`);
+    });
   });
-
-};
-
-syncDb();
-
-// sync sequelize models to the database, then turn on the server
-app.listen(PORT, () => {
-  console.log(`App listening on port ${PORT}!`);
-});
