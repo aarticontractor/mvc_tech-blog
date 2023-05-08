@@ -1,7 +1,7 @@
 // Import the models
-const User = require('./models/User');
-const Blogpost = require('./models/Blogpost');
-const Comment = require('./models/Comment');
+const User = require('../models/user');
+const Blogpost = require('../models/blogpost');
+const Comment = require('../models/comment');
 
 // Defined the associations between the models
 
