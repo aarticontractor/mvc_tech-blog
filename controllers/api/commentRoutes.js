@@ -1,5 +1,5 @@
 const router = require('express').Router();
-const {Comment} = require('../../models');
+const {Comment, User} = require('../../models');
 
 
 router.post('/new', async (req, res) => {
@@ -22,7 +22,13 @@ router.get('/all/:blogpostId', async (req, res) => {
     const { blogpostId } = req.params;
 
     const comments = await Comment.findAll({
-      where: { blogpost_id: blogpostId }
+      where: { blogpost_id: blogpostId },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
     });
 
     res.json(comments);

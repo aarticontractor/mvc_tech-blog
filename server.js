@@ -26,7 +26,20 @@ app.get('/', (req, res) => {
     try {
       const response = await fetch('http://localhost:3001/api/blogpost/all');
       const blogposts = await response.json();
-    res.render('dashboard', { title: 'All Blogs', username: null, blogposts: blogposts });
+      console.log(blogposts);
+
+      // Fetch comments for each blogpost
+    const blogpostsWithComments = await Promise.all(
+      blogposts.map(async (blogpost) => {
+        const commentsResponse = await fetch(`http://localhost:3001/api/comment/all/${blogpost.id}`);
+        const comments = await commentsResponse.json();
+        return { ...blogpost, comments };
+      })
+    );
+
+    console.log(blogpostsWithComments);
+
+    res.render('dashboard', { title: 'All Blogs', username: null, blogposts: blogpostsWithComments });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to fetch blog posts.' });
