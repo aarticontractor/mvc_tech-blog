@@ -1,6 +1,6 @@
 const express = require('express');
+const exphbs = require('express-handlebars');
 const routes = require('./controllers');
-// const sequelize = require('sequelize');
 const { User, Blogpost, Comment } = require('./models');
 const sequelize = require('./config/connection');
 
@@ -12,6 +12,15 @@ app.use(express.json());
 app.use(express.urlencoded({
   extended: true
 }));
+
+app.engine('handlebars', exphbs());
+app.set('view engine', 'handlebars');
+
+app.use(express.static('public'));
+
+app.get('/', (req, res) => {
+    res.render('homepage', { title: 'Home', username: null });
+  });
 
 app.use(routes);
 
