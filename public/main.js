@@ -15,7 +15,7 @@ document.getElementById('login-form').addEventListener('submit', async (e) => {
     if (response.ok) {
         // Redirect to the desired page or handle successful login
         console.log('Login successful');
-        window.location.href = '/dashboard';
+        window.location.href = '/home';
     } else {
         // Handle errors
         console.error('Login failed');
@@ -47,3 +47,14 @@ document.getElementById('signup-form').addEventListener('submit', async (e) => {
         alert('Please add valid username and password');
     }
 });
+
+
+document.getElementById('home').addEventListener("click", async (e) => {
+    e.preventDefault();
+    window.location.href = '/home';
+  });
+
+  document.getElementById("dashboard").addEventListener("click", async (e) => {
+    e.preventDefault();
+    window.location.href = '/dashboard';
+  });

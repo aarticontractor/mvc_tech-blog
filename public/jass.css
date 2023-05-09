@@ -14,7 +14,40 @@ nav {
     font-size: 18px;
     font-weight: bold;
   }
+
+  #home {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #fff;
+    color: #1e90ff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
   
+  #home:hover {
+    background-color: #3498db;
+    color: #fff;
+  }
+
+  #dashboard {
+    font-size: 16px;
+    font-weight: bold;
+    background-color: #fff;
+    color: #1e90ff;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, color 0.3s;
+  }
+  
+  #dashboard:hover {
+    background-color: #3498db;
+    color: #fff;
+  }
   #logout-button {
     font-size: 16px;
     font-weight: bold;

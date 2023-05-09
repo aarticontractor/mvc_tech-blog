@@ -37,6 +37,27 @@ router.get('/all', async (req, res) => {
   res.json(blogposts);
 });
 
+router.get('/all/:userId', async (req, res) => {
+  try {
+    const { userId } = req.params;
+
+    const comments = await Blogpost.findAll({
+      where: { user_id: userId },
+      include: [
+        {
+          model: User,
+          attributes: ['username'],
+        },
+      ],
+      order: [['id', 'DESC']],
+    });
+
+    res.json(comments);
+  } catch (err) {
+    console.log(err);
+    res.status(500).json({ error: 'Failed to retrieve Blogs for user' });
+  }
+});
 
 
 module.exports = router;

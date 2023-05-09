@@ -57,13 +57,13 @@ app.use(express.static('public'));
 app.get('/', (req, res) => {
 
   if (req.session.user) {
-    return res.redirect('/dashboard'); // Redirect to the login page if the user is not logged in
+    return res.redirect('/home'); // Redirect to the login page if the user is not logged in
   }
 
     res.render('homepage', { title: 'Home', username: null });
   });
 
-  app.get('/dashboard', async (req, res) => {
+  app.get('/home', async (req, res) => {
     if (!req.session.user) {
       return res.redirect('/'); // Redirect to the login page if the user is not logged in
     }
@@ -83,12 +83,43 @@ app.get('/', (req, res) => {
 
     console.log(blogpostsWithComments);
 
-    res.render('dashboard', { title: 'All Blogs', user_id: req.session.user.id, username: req.session.user.username, blogposts: blogpostsWithComments });
+    res.render('home', { title: 'All Blogs', user_id: req.session.user.id, username: req.session.user.username, blogposts: blogpostsWithComments });
   } catch (error) {
     console.error(error);
     res.status(500).json({ error: 'Failed to fetch blog posts.' });
   }
   });
+
+  app.get('/dashboard', async (req, res) => {
+    if (!req.session.user) {
+      return res.redirect('/'); // Redirect to the login page if the user is not logged in
+    }
+    try {
+      const user_id = req.session.user.id;
+      console.log(user_id)
+      const response = await fetch(`http://localhost:3001/api/blogpost/all/${user_id}`);
+      const blogposts = await response.json();
+      console.log(blogposts);
+
+      // Fetch comments for each blogpost
+    const blogpostsWithComments = await Promise.all(
+      blogposts.map(async (blogpost) => {
+        const commentsResponse = await fetch(`http://localhost:3001/api/comment/all/${blogpost.id}`);
+        const comments = await commentsResponse.json();
+        return { ...blogpost, comments };
+      })
+    );
+
+    console.log(blogpostsWithComments);
+
+    res.render('dashboard', { title: 'My Blogs', user_id: req.session.user.id, username: req.session.user.username, blogposts: blogpostsWithComments });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch blog posts for user.' });
+  }
+  });
+
+
 
 app.use(routes);
 
