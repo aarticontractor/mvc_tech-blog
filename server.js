@@ -31,7 +31,25 @@ app.use(
   })
 );
 
-app.engine('handlebars', exphbs());
+// Register the formatDate helper function
+const formatDate = (date) => {
+  const options = {
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric',
+    hour: '2-digit',
+    minute: '2-digit',
+    second: '2-digit',
+    hour12: true,
+  };
+  return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
+};
+
+app.engine('handlebars', exphbs({
+  helpers: {
+    formatDate,
+  },
+}));
 app.set('view engine', 'handlebars');
 
 app.use(express.static('public'));

@@ -12,7 +12,7 @@
 {{#each blogposts}}
     <div class="blogpost">
         <h3>{{title}}</h3>
-        <p class="blogpost-time">{{date_created}}</p>
+        <p class="blogpost-time">{{formatDate date_created}}</p>
         <p>Author: {{user.username}}</p>
         <p>{{content}}</p>
         <h4>Comments:</h4>
@@ -20,7 +20,7 @@
             {{#each comments}}
                 <li class="comment">
                   <strong>{{user.username}}:</strong> {{content}} <br>
-                  <span class="comment-time">{{date_created}}</span> <!-- Update this line -->
+                  <span class="comment-time">{{formatDate date_created}}</span> <!-- Update this line -->
                 </li>
             {{/each}}
         </ul>

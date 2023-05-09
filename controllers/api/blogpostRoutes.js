@@ -31,6 +31,7 @@ router.get('/all', async (req, res) => {
         attributes: ['username'],
       },
     ],
+    order: [['id', 'DESC']],
   });
 
   res.json(blogposts);
