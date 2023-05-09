@@ -198,3 +198,102 @@ nav {
   #signup-form button:hover {
     background-color: #3498db;
   }
+
+  /* Blog post and comment sections */
+.blogpost {
+  background-color: #f1f1f1;
+  border-radius: 5px;
+  padding: 20px;
+  margin-bottom: 30px;
+  position: relative;
+}
+
+.blogpost h3 {
+  margin-top: 0;
+}
+
+.blogpost-time {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+}
+
+.comment-list {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+.comment {
+  background-color: #ffffff;
+  border-radius: 5px;
+  padding: 10px;
+  margin-bottom: 10px;
+}
+
+.comment-time {
+    display: block;
+  text-align: right;
+  font-size: 0.9em;
+  color: #666;
+}
+
+/* Add this to your CSS file */
+
+/* Container for the form */
+#new-blogpost-form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 2px 6px rgba(0, 0, 0, 0.1);
+  background-color: #f9f9f9;
+}
+
+/* Style the form labels */
+#new-blogpost-form label {
+  display: block;
+  font-size: 18px;
+  font-weight: bold;
+  margin: 20px 0 10px;
+}
+
+/* Style the form inputs */
+#new-blogpost-form input,
+#new-blogpost-form textarea {
+  width: 100%;
+  padding: 10px;
+  border: 2px solid #ddd;
+  border-radius: 5px;
+  font-size: 16px;
+  outline: none;
+  background-color: #fff;
+}
+
+/* Style the form textarea */
+#new-blogpost-form textarea {
+  min-height: 200px;
+  resize: vertical;
+}
+
+/* Style the form button */
+#new-blogpost-form button {
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #1e90ff;
+  color: #fff;
+  padding: 12px 30px;
+  margin: 20px 0;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: background-color 0.3s;
+}
+
+/* Style the form button hover */
+#new-blogpost-form button:hover {
+  background-color: #3498db;
+}
+

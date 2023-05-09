@@ -1,0 +1,39 @@
+<!-- dashboard.handlebars -->
+
+<form id="new-blogpost-form">
+  <label for="title">Title:</label>
+  <input type="text" id="title" name="title" required>
+  <label for="content">Content:</label>
+  <textarea id="content" name="content" required></textarea>
+  <button type="submit">Submit</button>
+</form>
+
+
+{{#each blogposts}}
+    <div class="blogpost">
+        <h3>{{title}}</h3>
+        <p class="blogpost-time">{{date_created}}</p>
+        <p>Author: {{user.username}}</p>
+        <p>{{content}}</p>
+        <h4>Comments:</h4>
+        <ul class="comment-list">
+            {{#each comments}}
+                <li class="comment">
+                  <strong>{{user.username}}:</strong> {{content}} <br>
+                  <span class="comment-time">{{date_created}}</span> <!-- Update this line -->
+                </li>
+            {{/each}}
+        </ul>
+        <form class="comment-form">
+      <label for="comment">Add Comment:</label>
+      <textarea id="comment" name="comment" required></textarea>
+      <button type="submit">Submit</button>
+      <input type="hidden" name="blogpost_id" value="{{id}}">
+    </form>
+    </div>
+{{/each}}
+
+
+<script>
+  sessionStorage.setItem("user_id", "{{user_id}}");
+</script>

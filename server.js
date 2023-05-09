@@ -3,7 +3,7 @@ const exphbs = require('express-handlebars');
 const routes = require('./controllers');
 const { User, Blogpost, Comment } = require('./models');
 const sequelize = require('./config/connection');
-
+const fetch = require('node-fetch');
 
 const app = express();
 const PORT = process.env.PORT || 3001;
@@ -22,8 +22,15 @@ app.get('/', (req, res) => {
     res.render('homepage', { title: 'Home', username: null });
   });
 
-  app.get('/dashboard', (req, res) => {
-    res.render('dashboard', { title: 'All Blogs', username: null });
+  app.get('/dashboard', async (req, res) => {
+    try {
+      const response = await fetch('http://localhost:3001/api/blogpost/all');
+      const blogposts = await response.json();
+    res.render('dashboard', { title: 'All Blogs', username: null, blogposts: blogposts });
+  } catch (error) {
+    console.error(error);
+    res.status(500).json({ error: 'Failed to fetch blog posts.' });
+  }
   });
 
 app.use(routes);

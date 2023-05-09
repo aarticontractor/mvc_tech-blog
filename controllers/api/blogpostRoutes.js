@@ -1,10 +1,14 @@
 const router = require('express').Router();
 const {
-  Blogpost
+  Blogpost, User
 } = require('../../models');
 
 router.post('/new', async (req, res) => {
-  const { user_id, title, content } = req.body;
+  const {
+    user_id,
+    title,
+    content
+  } = req.body;
   const blogpost = await Blogpost.create({
     user_id,
     title,
@@ -17,7 +21,18 @@ router.post('/new', async (req, res) => {
 
 
 router.get('/all', async (req, res) => {
-  const blogposts = await Blogpost.findAll();
+  // const blogposts = await Blogpost.findAll();
+  // res.json(blogposts);
+
+  const blogposts = await Blogpost.findAll({
+    include: [
+      {
+        model: User,
+        attributes: ['username'],
+      },
+    ],
+  });
+
   res.json(blogposts);
 });
 
