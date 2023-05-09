@@ -61,4 +61,9 @@ router.post('/login', async (req, res) => {
   }
 });
 
+router.post('/logout', async (req, res) => {
+  req.session.destroy();
+  res.status(200).json({ message: 'Session cleared.' });
+});
+
 module.exports = router;
