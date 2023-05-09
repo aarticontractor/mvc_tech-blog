@@ -22,6 +22,10 @@ app.get('/', (req, res) => {
     res.render('homepage', { title: 'Home', username: null });
   });
 
+  app.get('/dashboard', (req, res) => {
+    res.render('dashboard', { title: 'All Blogs', username: null });
+  });
+
 app.use(routes);
 
 const syncDb = async () => {
