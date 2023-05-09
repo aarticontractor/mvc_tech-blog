@@ -45,9 +45,18 @@ const formatDate = (date) => {
   return new Intl.DateTimeFormat('en-US', options).format(new Date(date));
 };
 
+const if_eq = (a, b, opts) => {
+  if (a == b) {
+    return opts.fn(this);
+  } else {
+    return opts.inverse(this);
+  }
+};
+
 app.engine('handlebars', exphbs({
   helpers: {
     formatDate,
+    if_eq,
   },
 }));
 app.set('view engine', 'handlebars');
