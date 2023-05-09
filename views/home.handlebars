@@ -16,6 +16,9 @@
         <p class="blogpost-time">{{formatDate date_created}}</p>
         <p>Author: {{user.username}}</p>
         <p>{{content}}</p>
+        {{#if_eq user_id user_id}}
+          <button class="delete-blogpost" data-blogpost-id={{id}}>Delete Blog</button>
+        {{/if_eq}}
         <h4>Comments:</h4>
         <ul class="comment-list">
             {{#each comments}}
@@ -23,6 +26,12 @@
                   <strong>{{user.username}}:</strong> {{content}} <br>
                   <span class="comment-time">{{formatDate date_created}}</span> <!-- Update this line -->
                 </li>
+                {{#if_eq user_id user_id}}
+                  <form class="delete-form">
+                    <button type="submit">Delete comment</button>
+                    <input type="hidden" name="comment_id" value="{{id}}">
+                  </form>
+                {{/if_eq}}
             {{/each}}
         </ul>
         <form class="comment-form">
