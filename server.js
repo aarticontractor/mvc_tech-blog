@@ -64,18 +64,19 @@ app.get('/', (req, res) => {
   });
 
   app.get('/home', async (req, res) => {
+    const apiServerUrl = process.env.API_SERVER_URL || 'http://localhost:3001';
     if (!req.session.user) {
       return res.redirect('/'); // Redirect to the login page if the user is not logged in
     }
     try {
-      const response = await fetch('http://localhost:3001/api/blogpost/all');
+      const response = await fetch(`${apiServerUrl}/api/blogpost/all`);
       const blogposts = await response.json();
       console.log(blogposts);
 
       // Fetch comments for each blogpost
     const blogpostsWithComments = await Promise.all(
       blogposts.map(async (blogpost) => {
-        const commentsResponse = await fetch(`http://localhost:3001/api/comment/all/${blogpost.id}`);
+        const commentsResponse = await fetch(`${apiServerUrl}/api/comment/all/${blogpost.id}`);
         const comments = await commentsResponse.json();
         return { ...blogpost, comments };
       })
@@ -91,20 +92,21 @@ app.get('/', (req, res) => {
   });
 
   app.get('/dashboard', async (req, res) => {
+    const apiServerUrl = process.env.API_SERVER_URL || 'http://localhost:3001';
     if (!req.session.user) {
       return res.redirect('/'); // Redirect to the login page if the user is not logged in
     }
     try {
       const user_id = req.session.user.id;
       console.log(user_id)
-      const response = await fetch(`http://localhost:3001/api/blogpost/all/${user_id}`);
+      const response = await fetch(`${apiServerUrl}/api/blogpost/all/${user_id}`);
       const blogposts = await response.json();
       console.log(blogposts);
 
       // Fetch comments for each blogpost
     const blogpostsWithComments = await Promise.all(
       blogposts.map(async (blogpost) => {
-        const commentsResponse = await fetch(`http://localhost:3001/api/comment/all/${blogpost.id}`);
+        const commentsResponse = await fetch(`${apiServerUrl}/api/comment/all/${blogpost.id}`);
         const comments = await commentsResponse.json();
         return { ...blogpost, comments };
       })
